@@ -6,7 +6,7 @@ namespace UIMock
 {
     public class HomePageViewModel : BaseViewModel
     {
-        private List<Menu> _reminderList;
+        private List<Menu> _reminderList = new List<Menu>();
         public List<Menu> ReminderList
         {
             get => _reminderList;
@@ -20,10 +20,12 @@ namespace UIMock
         }
             List<string> menuDays = new List<string>();
         public string Name { get; set; }
+        public string Greeting { get; set; }
 
         public HomePageViewModel()
         {
             Name = User.CurrentUser.Name;
+            Greeting = GetGreeting();
             if (User.CurrentUser.Cantine != null)
             {
                 var cantine = User.CurrentUser.Cantine;
@@ -42,6 +44,23 @@ namespace UIMock
 
                     _reminderList = menuDayList.Where(md => !string.IsNullOrEmpty(md.Meal)).ToList();
                 }
+            }
+        }
+        private string GetGreeting()
+        {
+            DateTime now = DateTime.Now;
+
+            if (now.Hour < 12)
+            {
+                return "Godmorgen,";
+            }
+            else if (now.Hour < 18)
+            {
+                return "God eftermiddag,";
+            }
+            else
+            {
+                return "Godaften,";
             }
         }
     }
