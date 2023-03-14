@@ -2,6 +2,7 @@
 using UIMock.Entities;
 using UIMock.API;
 using System.Linq;
+using Sharpnado.Tabs;
 namespace UIMock
 {
     public class HomePageViewModel : BaseViewModel
