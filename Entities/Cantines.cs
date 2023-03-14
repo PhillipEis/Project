@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace UIMock.Entities
 {
-    public class Cantine
+    public class Cantines
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public string Price_Api { get; set; }
+        public string Price_api { get; set; }
         public Details Details { get; set; }
 
         [JsonConstructor]
-        public Cantine(int id, string name, decimal price, string priceApi, string details)
+        public Cantines(int id, string name, decimal price, string priceApi, string details)
         {
             Id = id;
             Name = name;

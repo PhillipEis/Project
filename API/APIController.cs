@@ -15,7 +15,7 @@ namespace UIMock.API
     {
         private List<Cantines> Cantines = new List<Cantines>();
         private readonly HttpClient _httpClient;
-        private string url = "https://74d1-2-104-115-51.eu.ngrok.io";
+        private string url = "https://bfee-2-104-115-51.eu.ngrok.io";
         public APIController()
         {
             _httpClient = new HttpClient();
@@ -87,7 +87,8 @@ namespace UIMock.API
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var cantines = await response.Content.ReadFromJsonAsync<List<Cantines>>();
+                    var json = await response.Content.ReadAsStringAsync();
+                    var cantines = JsonConvert.DeserializeObject<List<Cantines>>(json);
                     Cantines = cantines;
                 }
                 else
