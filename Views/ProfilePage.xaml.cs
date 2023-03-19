@@ -1,12 +1,20 @@
-﻿namespace UIMock;
+using UIMock.ViewModels;
 
-public partial class OnboardingPage : ContentPage
+namespace UIMock.Views;
+
+public partial class ProfilePage : ContentPage
 {
-	public OnboardingPage()
+	public ProfilePage()
 	{
 		InitializeComponent();
-		BindingContext = new OnboardingPageViewModel();
+		BindingContext = new ProfilePageViewModel();
+       
+        if (string.IsNullOrEmpty(Entities.User.CurrentUser.SubID))
+        {
+            btnCreateSubscription.IsVisible = true;
+        }
 	}
+
     protected override void OnAppearing()
     {
         base.OnAppearing();

@@ -3,45 +3,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:tabs="http://sharpnado.com"
     x:Class="UIMock.HomePage"
+    xmlns:views="UIMock.Views"
     Title="HomePage"
     NavigationPage.HasNavigationBar="False"
     BackgroundColor="#fafafa">
     <ContentPage.Resources>
         <ResourceDictionary>
 
-            <Style x:Key="MaterialTabStyle" TargetType="tabs:MaterialUnderlinedTabItem">
-                <Setter Property="SelectedTabColor" Value="{StaticResource Primary}" />
-                <Setter Property="IconSize" Value="24" />
-                <Setter Property="FontFamily" Value="OpenSansRegular" />
+            <Style x:Key="BottomTabStyle" TargetType="tabs:BottomTabItem">
+                <Setter Property="SelectedTabColor" Value="{StaticResource Accent}" />
+                <Setter Property="UnselectedLabelColor" Value="Gray" />
+                <Setter Property="UnselectedIconColor" Value="LightGray" />
+                <Setter Property="FontFamily" Value="{StaticResource FontLight}" />
                 <Setter Property="LabelSize" Value="14" />
-                <Setter Property="UnderlineAllTab" Value="True" />
-                <Setter Property="UnselectedLabelColor" Value="{StaticResource Gray200}" />
-            </Style>
-
-            
-            <Style x:Key="BottomTabStyle"
-                   BasedOn="{StaticResource MaterialTabStyle}"
-                   TargetType="tabs:MaterialUnderlinedTabItem">
-                <Setter Property="LabelSize" Value="12" />
-            </Style>
-
-            <Style x:Key="LabelHeader" TargetType="Label">
-                <Setter Property="FontFamily" Value="OpenSansExtraBold" />
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="VerticalOptions" Value="Center" />
-                <Setter Property="Margin" Value="16,0" />
-            </Style>
-
-            <Style x:Key="LabelDescription" TargetType="Label">
-                <Setter Property="FontFamily" Value="OpenSansRegular" />
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="VerticalOptions" Value="Center" />
-            </Style>
-
-            <Style x:Key="Card" TargetType="Border">
-                <Setter Property="Padding" Value="0" />
-                <Setter Property="StrokeShape" Value="RoundRectangle 20" />
-                <Setter Property="StrokeThickness" Value="2" />
+                <Setter Property="IconSize" Value="28" />
             </Style>
 
         </ResourceDictionary>
@@ -65,13 +40,10 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Image Grid.Column="0" Source="menu64.png" HeightRequest="25" HorizontalOptions="Start"
-                       WidthRequest="25" BackgroundColor="Transparent"/>
-
                 <Frame Grid.Column="2" Padding="0" WidthRequest="40" HeightRequest="40" BorderColor="Transparent"
                        CornerRadius="20" IsClippedToBounds="True">
 
-                    <Image Source="phillip.jpg" HorizontalOptions="Center" BackgroundColor="Transparent">
+                    <Image Source="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/LA_Ikon_RGB_Cold_Blue.png/800px-LA_Ikon_RGB_Cold_Blue.png" HorizontalOptions="Center" BackgroundColor="Transparent">
                         <Image.Aspect>
                             <OnPlatform x:TypeArguments="Aspect">
                                 <On Platform="iOS" Value="AspectFit"/>
@@ -85,7 +57,7 @@
             </Grid>
         </StackLayout>
 
-        <VerticalStackLayout Grid.Row="1" Margin="30,30,30,10">
+        <VerticalStackLayout Grid.Row="1" Margin="30,0,30,10">
             <Label Text="{Binding Greeting}" TextColor="Gray" HorizontalOptions="Start" FontSize="18"/>
             <Label Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontFamily="LatoBold"
                     HorizontalOptions="Start" FontSize="24"/>
@@ -112,13 +84,6 @@
                         BorderColor="Transparent" CornerRadius="20" VerticalOptions="CenterAndExpand">
 
                     <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-
-                        <!--<Frame BackgroundColor="White" HeightRequest="45" WidthRequest="45"
-                                CornerRadius="22" BorderColor="Transparent" Padding="0">
-
-                            <Label Text="&#xf043;" FontFamily="FontAwesomeSolid" TextColor="#e8bc65"
-                                FontSize="22" HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                        </Frame>-->
                         <Label Text="Test" TextColor="Black" FontFamily="LatoBold" FontSize="24"/>
                         <Label Text="Test" TextColor="Gray"/>
 
@@ -203,8 +168,6 @@
 
                 <Label Text="Madplan" Grid.Row="0" Grid.Column="0" TextColor="Black" FontSize="18" FontAttributes="None"
                         HorizontalOptions="Start" VerticalOptions="Center" FontFamily="LatoBold" />
-                <Label Text="Uge 9" Grid.Row="1" Grid.Column="0" Margin="0,10" TextColor="Black" FontSize="18" FontAttributes="None"
-                        HorizontalOptions="Start" VerticalOptions="Center" FontFamily="LatoBold" />
             </Grid>
 
         </StackLayout>
@@ -257,32 +220,34 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <tabs:TabHostView x:Name="TabHost"
+        <tabs:TabHostView 
+                    x:Name="TabHost"
                     Grid.Row="5"
-                    BackgroundColor="#272727"
-                    SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}"
+                    BackgroundColor="White"
+                    SelectedIndex="{Binding SelectedPage, Mode=TwoWay}"
                     TabType="Fixed">
             <tabs:TabHostView.Tabs>
                 <tabs:BottomTabItem Style="{StaticResource BottomTabStyle}"
                             IconImageSource="house_96.png"
-                            Label="Home" />
+                            Label="Hjem" />
                 <tabs:BottomTabItem Style="{StaticResource BottomTabStyle}"
                             IconImageSource="list_96.png"
-                            Label="Lists" />
+                            Label="IDKFK" />
 
                 <!--  Circle button  -->
-                <tabs:TabButton Padding="5"
-                ButtonBackgroundColor="Black"
-                ButtonPadding="10"
-                CornerRadius="10"
-                IconImageSource="camera_96.png" />
+                <tabs:TabButton ButtonBackgroundColor="Purple"
+                        ButtonCircleSize="60"
+                        ButtonPadding="15"
+                        IconImageSource="camera_96.png"
+                        Scale="1.3"
+                        TranslationY="-10" />
 
                 <tabs:BottomTabItem Style="{StaticResource BottomTabStyle}"
                             IconImageSource="grid_view_96.png"
-                            Label="Grid}" />
+                            Label="G" />
                 <tabs:BottomTabItem Style="{StaticResource BottomTabStyle}"
-                            IconImageSource="house_96.png"
-                            Label="Idk}" />
+                            IconImageSource="profile96.png"
+                            Label="Profil" />
             </tabs:TabHostView.Tabs>
         </tabs:TabHostView>
 

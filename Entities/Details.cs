@@ -8,7 +8,6 @@ namespace UIMock.Entities
 {
     public class Details
     {
-        public string Description { get; set; }
         public string OpenTime { get; set; }
         public string CloseTime { get; set; }
         public string MenuDay1 { get; set; }
@@ -19,9 +18,8 @@ namespace UIMock.Entities
         public string MenuDay6 { get; set; }
         public string MenuDay7 { get; set; }
 
-        public Details(string description, string openTime, string closeTime, string menuDay1, string menuDay2, string menuDay3, string menuDay4, string menuDay5, string menuDay6, string menuDay7)
+        public Details(string openTime, string closeTime, string menuDay1, string menuDay2, string menuDay3, string menuDay4, string menuDay5, string menuDay6, string menuDay7)
         {
-            Description = description;
             OpenTime = openTime;
             CloseTime = closeTime;
             MenuDay1 = menuDay1;

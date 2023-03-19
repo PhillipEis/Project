@@ -60,7 +60,9 @@
 	  <None Remove="Resources\Images\list_96.png" />
 	  <None Remove="Resources\Images\logo.png" />
 	  <None Remove="Resources\Images\phillip.jpg" />
+	  <None Remove="Resources\Images\profile96.png" />
 	  <None Remove="Resources\Images\theme_96.png" />
+	  <None Remove="Resources\Images\user.png" />
 	  <None Remove="Views\" />
 	  <None Remove="ViewModels\" />
 	  <None Remove="Resources\Images\" />
@@ -80,7 +82,9 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />
+	  <PackageReference Include="Sentry" Version="3.29.1" />
 	  <PackageReference Include="Sharpnado.Tabs.Maui" Version="3.0.1" />
+	  <PackageReference Include="Stripe.net" Version="41.11.0-beta.1" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Views\RegisterPage.xaml.cs">
@@ -88,8 +92,14 @@
 	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
+	  <MauiXaml Update="Views\CreateSubscriptionPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Condition=" '$(EnableDefaultXamlItems)' == 'true' " Update="Views\HomePage.xaml">
 	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ProfilePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\RegisterPage.xaml">
 	    <SubType></SubType>

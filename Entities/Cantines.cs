@@ -25,7 +25,7 @@ namespace UIMock.Entities
             if (!string.IsNullOrEmpty(details))
             {
                 var detailsDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(details);
-                Details = new Details(detailsDictionary["description"], detailsDictionary["openTime"],
+                Details = new Details(detailsDictionary["openTime"],
                                       detailsDictionary["closeTime"], detailsDictionary["menuDay1"],
                                       detailsDictionary["menuDay2"], detailsDictionary["menuDay3"],
                                       detailsDictionary["menuDay4"], detailsDictionary["menuDay5"],

@@ -3,6 +3,8 @@ using UIMock.Entities;
 using UIMock.API;
 using System.Linq;
 using Sharpnado.Tabs;
+using UIMock.Views;
+
 namespace UIMock
 {
     public class HomePageViewModel : BaseViewModel
@@ -19,7 +21,33 @@ namespace UIMock
                 OnPropertyChanged(nameof(ReminderList));
             }
         }
-            List<string> menuDays = new List<string>();
+        private int _selectedPage;
+        public int SelectedPage
+        {
+            get => _selectedPage;
+            set
+            {
+                if (SetProperty(ref _selectedPage, value))
+                {
+                    switch (value)
+                    {
+                        case 1:
+                            // Navigate to the List page
+                            break;
+                        case 2:
+                            // Handle the Circle button tab
+                            break;
+                        case 3:
+                            // Navigate to the Grid page
+                            App.Current.MainPage.Navigation.PushAsync(new ProfilePage());
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+        List<string> menuDays = new List<string>();
         public string Name { get; set; }
         public string Greeting { get; set; }
 
