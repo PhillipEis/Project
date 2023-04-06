@@ -62,34 +62,15 @@
             <Label Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontFamily="LatoBold"
                     HorizontalOptions="Start" FontSize="24"/>
         </VerticalStackLayout>
-        <StackLayout Grid.Row="2" Margin="30,10,30,10">
+        <StackLayout Grid.Row="2" Margin="30">
             <Grid RowSpacing="10">
-                <Grid.ColumnSpacing>
-                    <OnPlatform x:TypeArguments="x:Double">
-                        <On Platform="iOS" Value="30"/>
-                        <On Platform="Android" Value="10"/>
-                    </OnPlatform>
-                </Grid.ColumnSpacing>
-
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80"/>
                     <RowDefinition Height="80"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*"/>
-                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-
-                <Frame Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" BackgroundColor="#f7d5d2" HeightRequest="160"
-                        BorderColor="Transparent" CornerRadius="20" VerticalOptions="CenterAndExpand">
-
-                    <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                        <Label Text="Test" TextColor="Black" FontFamily="LatoBold" FontSize="24"/>
-                        <Label Text="Test" TextColor="Gray"/>
-
-                    </VerticalStackLayout>
-
-                </Frame>
 
                 <Frame Grid.Row="0" Grid.Column="1" BackgroundColor="#fbe6b8"
                         BorderColor="Transparent" CornerRadius="20" Padding="0">
@@ -113,25 +94,25 @@
                 </Frame>
 
                 <Frame Grid.Row="1" Grid.Column="1" BackgroundColor="#e9eafd"
-                        BorderColor="Transparent" CornerRadius="20" Padding="0">
-                    <Grid ColumnSpacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+        BorderColor="Transparent" CornerRadius="20" Padding="0">
+                    <Grid HorizontalOptions="Center" VerticalOptions="Center">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
 
-                        <Label Grid.Row="0" Grid.Column="1" Text="Du har brugt" TextColor="Black"
-                                FontFamily="LatoBold" FontSize="24"/>
+                        <Label Grid.Row="0" Grid.Column="1" Text="Åbeningstider" TextColor="Black"
+                FontFamily="LatoBold" FontSize="24"/>
 
-                        <Label Grid.Row="1" Grid.Column="1" Text="Du har brugt" TextColor="Gray"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding OpenHours}" TextColor="Gray"
+                HorizontalOptions="Center" VerticalOptions="Center"/>
                     </Grid>
-
                 </Frame>
+
 
             </Grid>
         </StackLayout>

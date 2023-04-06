@@ -7,6 +7,8 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using UIMock.Entities;
 using Newtonsoft.Json;
+using static Microsoft.Maui.ApplicationModel.Permissions;
+using System.Xml.Linq;
 
 namespace UIMock.API
 {
@@ -15,12 +17,13 @@ namespace UIMock.API
     {
         private List<Cantines> Cantines = new List<Cantines>();
         private readonly HttpClient _httpClient;
-        private string url = "https://a1c2-2-104-115-51.eu.ngrok.io";
+        private string url = "https://1dd6-2-104-115-51.eu.ngrok.io";
         public APIController()
         {
             _httpClient = new HttpClient();
             LoadCantines();
         }
+
 
         public async Task<Cantines> GetCantines(List<Cantines> cantines, int CantineID)
         {
@@ -109,6 +112,34 @@ namespace UIMock.API
                 await LoadCantines();
             }
             return Cantines;
+        }
+
+        public async Task<Result.ResultCode> UpdateSubscription(string UserID, string SubId, string SubItemId)
+        {
+            try
+            {
+                var values = new Dictionary<string, string>
+                {
+                    {"userid", UserID},
+                    {"subid", SubId},
+                    {"subitemid", SubItemId}
+                };
+                var content = new FormUrlEncodedContent(values);
+
+                var response = await _httpClient.PostAsync(url + "/api/update_sub", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return Result.ResultCode.Success;
+                } else
+                {
+                    return Result.ResultCode.Failure;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

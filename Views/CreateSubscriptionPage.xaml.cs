@@ -1,68 +1,66 @@
 using UIMock.ViewModels;
 using Stripe;
 using Stripe.Checkout;
+using System.Diagnostics;
+using UIMock.API;
+using UIMock.Entities;
 
 namespace UIMock.Views;
 
 public partial class CreateSubscriptionPage : ContentPage
 {
-	public CreateSubscriptionPage()
-	{
-		InitializeComponent();
-        BindingContext = new CreateSubViewModel();
-        CreateSubscription();
+    private readonly CreateSubViewModel viewModel;
+    public CreateSubscriptionPage()
+    {
+        InitializeComponent();
+        viewModel = new CreateSubViewModel();
+        BindingContext = viewModel;
     }
 
-	public async Task CreateSubscription()
-	{
-        StripeConfiguration.ApiKey = "sk_test_51Mhu7wBa7FzCpcu3o5lLh1IocYW9AdSYZaa65RCuPeog0DGMKzxBGDv7TmIbddyt5TJ75k0crIFrthvnqB5kCOTV00oRWufgTs";
-        var options = new SessionCreateOptions
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        var sessionId = await viewModel.CreateStripeSession();
+
+        var sessionService = new SessionService();
+        var session = sessionService.Get(sessionId);
+
+        stripeWebView.Source = session.Url;
+    }
+
+    private async void StripeWebView_Navigated(object sender, WebNavigatedEventArgs e)
+    {
+        if (e.Url == "https://example.com/success" || e.Url == "https://example.com/cancel")
         {
-            CustomerEmail = Entities.User.CurrentUser.Email,
-            PaymentMethodTypes = new List<string> { "card" },
-            LineItems = new List<SessionLineItemOptions>
+            stripeWebView.IsVisible = false;
+            stripeWebView.IsEnabled = false;
+            // Payment is complete, remove the WebView from its parent container
+            try
             {
-                new SessionLineItemOptions
+                var viewModel = (CreateSubViewModel)BindingContext;
+                var subscription = await viewModel.GetSubscription(viewModel.StripeSession.Id);
+
+                if (subscription != null)
                 {
-                    Price = Entities.User.CurrentUser.Cantine.Price_api, // Replace with your price ID
-                },
-            },
-            Mode = "subscription",
-            SuccessUrl = "https://example.com/success",
-            CancelUrl = "https://example.com/cancel",
-        };
-
-        var service = new SessionService();
-        var session = service.Create(options);
-        stripeWebView.Source = new Uri(session.Url);
-        stripeWebView.Navigated += async (sender, args) =>
-        {
-            if (args.Url == options.SuccessUrl || args.Url == options.CancelUrl)
-            {
-                // Payment is complete, remove the WebView from its parent container
-                stripeWebView.IsVisible = false;
-                stripeWebView.IsEnabled = false;
-
-
-                var sessionService = new SessionService();
-                var checkoutSession = sessionService.Get(session.Id);
-
-                if (checkoutSession.PaymentStatus == "paid")
-                {
-                    if (checkoutSession.SubscriptionId != null)
+                    Result.ResultCode result = await viewModel.UpdateSubscription(User.CurrentUser.UserID, subscription.Id, subscription.Items.Data[0].Id);
+                    if(result == Result.ResultCode.Success)
                     {
-                        Console.WriteLine($"Subscription ID");
-                    }
-                    else
+                        await App.Current.MainPage.Navigation.PushAsync(new ProfilePage());
+                    } else
                     {
-                        Console.WriteLine("Subscription ID not found.");
+                        await App.Current.MainPage.Navigation.PushAsync(new ProfilePage());
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Payment not completed.");
+                    Console.WriteLine("Subscription not found.");
                 }
             }
-        };
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error processing payment response: {ex.Message}");
+            }
+        }
     }
 }

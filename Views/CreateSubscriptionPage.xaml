@@ -5,5 +5,5 @@
              Title="CreateSubscriptionPage"
              NavigationPage.HasNavigationBar="False"
              BackgroundColor="#fafafa">
-    <WebView x:Name="stripeWebView" />
+    <WebView x:Name="stripeWebView" Navigated="StripeWebView_Navigated" />
 </ContentPage>

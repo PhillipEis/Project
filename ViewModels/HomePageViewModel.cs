@@ -48,13 +48,15 @@ namespace UIMock
             }
         }
         List<string> menuDays = new List<string>();
-        public string Name { get; set; }
-        public string Greeting { get; set; }
+        public string Name { get; private set; }
+        public string Greeting { get; private set; }
+        public string OpenHours { get; private set; }
 
         public HomePageViewModel()
         {
             Name = User.CurrentUser.Name;
             Greeting = GetGreeting();
+            OpenHours = User.CurrentUser.Cantine.Details.OpenTime + "-" + User.CurrentUser.Cantine.Details.CloseTime;
             if (User.CurrentUser.Cantine != null)
             {
                 var cantine = User.CurrentUser.Cantine;
@@ -77,21 +79,34 @@ namespace UIMock
         }
         private string GetGreeting()
         {
-            DateTime now = DateTime.Now;
-
-            if (now.Hour < 12)
+            TimeSpan morningStart = new TimeSpan(6, 0, 0); // 6:00 AM
+            TimeSpan morningEnd = new TimeSpan(11, 59, 59); // 11:59:59 AM
+            TimeSpan afternoonStart = new TimeSpan(12, 0, 0); // 12:00 PM
+            TimeSpan afternoonEnd = new TimeSpan(17, 59, 59); // 5:59:59 PM
+            TimeSpan eveningStart = new TimeSpan(18, 0, 0); // 6:00 PM
+            TimeSpan eveningEnd = new TimeSpan(23, 59, 59); // 11:59:59 PM
+            TimeSpan currentTime = DateTime.Now.TimeOfDay;
+            string greeting;
+            if (currentTime >= morningStart && currentTime <= morningEnd)
             {
-                return "Godmorgen,";
+                greeting = "Godmorgen, ";
             }
-            else if (now.Hour < 18)
+            else if (currentTime >= afternoonStart && currentTime <= afternoonEnd)
             {
-                return "God eftermiddag,";
+                greeting = "God eftermiddag, ";
+            }
+            else if (currentTime >= eveningStart && currentTime <= eveningEnd)
+            {
+                greeting = "God aften, ";
             }
             else
             {
-                return "Godaften,";
+                greeting = "God nat, ";
             }
+
+            return greeting;
         }
+
     }
 }
 
