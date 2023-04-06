@@ -25,7 +25,7 @@ namespace UIMock.API
         }
 
 
-        public async Task<Cantines> GetCantines(List<Cantines> cantines, int CantineID)
+        public async Task<Cantines> GetCantine(List<Cantines> cantines, int CantineID)
         {
             foreach (Cantines cant in cantines)
             {
@@ -52,7 +52,7 @@ namespace UIMock.API
                     string subid = responseData.sub_id;
                     string subitemid = responseData.sub_item_id;
                     int location = Convert.ToInt32(responseData.Location);
-                    Cantines cant = await GetCantines(Cantines, location);
+                    Cantines cant = await GetCantine(Cantines, location);
                     User.CurrentUser = new User(userid, name, email, phone, subid, subitemid, cant);
                 }
             } catch (Exception ex)
