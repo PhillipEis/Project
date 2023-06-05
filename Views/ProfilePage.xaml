@@ -10,10 +10,9 @@
         <ResourceDictionary>
 
             <Style x:Key="BottomTabStyle" TargetType="tabs:BottomTabItem">
-                <Setter Property="SelectedTabColor" Value="{StaticResource Accent}" />
+                <Setter Property="SelectedTabColor" Value="#2196F3" />
                 <Setter Property="UnselectedLabelColor" Value="Gray" />
                 <Setter Property="UnselectedIconColor" Value="LightGray" />
-                <Setter Property="FontFamily" Value="{StaticResource FontLight}" />
                 <Setter Property="LabelSize" Value="14" />
                 <Setter Property="IconSize" Value="28" />
             </Style>
@@ -55,8 +54,8 @@
                         IconImageSource="house_96.png"
                         Label="Hjem" />
                     <tabs:BottomTabItem Style="{StaticResource BottomTabStyle}"
-                        IconImageSource="list_96.png"
-                        Label="IDKFK" />
+                        IconImageSource="qrcode.png"
+                        Label="QR" />
 
                     <tabs:TabButton ButtonBackgroundColor="Purple"
                     ButtonCircleSize="60"

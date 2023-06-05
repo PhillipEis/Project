@@ -13,25 +13,28 @@
 
         <Image Grid.Row="0" Source="logo.png" Aspect="AspectFit" HeightRequest="100" HorizontalOptions="Center" VerticalOptions="Center" />
 
-        <VerticalStackLayout Grid.Row="1" Spacing="10">
+        <Grid Grid.Row="1" IsVisible="{Binding IsBusy}" BackgroundColor="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center" />
+        </Grid>
 
+        <VerticalStackLayout Grid.Row="1" Spacing="10">
             <Label Text="Log ind" FontSize="20" TextColor="Black" FontAttributes="Bold" Margin="0,0,0,20"
-                   HorizontalOptions="Center"/>
+               HorizontalOptions="Center"/>
 
             <Label Text="Din Email"/>
 
-            <Entry Placeholder="din@gmail.com" Text="{Binding Email}" Keyboard="Email" />
+            <Entry Placeholder="din@gmail.com" Text="{Binding Email}" Keyboard="Email" IsEnabled="{Binding IsLoginEnabled}" />
 
             <Label Text="Adgangskode"/>
 
-            <Entry Placeholder="Adgangskode" Text="{Binding UserPassword}" IsPassword="True"/>
+            <Entry Placeholder="Adgangskode" Text="{Binding UserPassword}" IsEnabled="{Binding IsLoginEnabled}" IsPassword="True"/>
 
             <Label Text="Glemt Adgangskode?" HorizontalOptions="End" TextColor="Gray" FontSize="Small"/>
 
-            <Button Text="Log ind" BackgroundColor="#e8bc65" Margin="0,10,0,0" Command="{Binding ICommandNavToHomePage}"/>
+            <Button Text="Log ind" BackgroundColor="#e8bc65" Margin="0,10,0,0" IsEnabled="{Binding IsLoginEnabled}" Command="{Binding ICommandNavToHomePage}"/>
 
-            <Button Text="Register" BackgroundColor="#e8bc65" Margin="0,10,0,0" Command="{Binding IOpenRegistration}"/>
-
+            <Button Text="Register" BackgroundColor="#e8bc65" Margin="0,10,0,0" IsEnabled="{Binding IsLoginEnabled}" Command="{Binding IOpenRegistration}"/>
         </VerticalStackLayout>
     </Grid>
+
 </ContentPage>

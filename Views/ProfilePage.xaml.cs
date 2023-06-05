@@ -15,6 +15,14 @@ public partial class ProfilePage : ContentPage
         }
 	}
 
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+
+        // Save the selected tab index in the preferences
+        Preferences.Set("SelectedTabIndex", TabHost.SelectedIndex);
+    }
+
     protected override void OnAppearing()
     {
         base.OnAppearing();

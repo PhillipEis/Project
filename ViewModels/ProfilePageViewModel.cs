@@ -29,7 +29,7 @@ namespace UIMock.ViewModels
                             App.Current.MainPage.Navigation.PushAsync(new HomePage());
                             break;
                         case 1:
-                            // Navigate to the List page
+                            App.Current.MainPage.Navigation.PushAsync(new QRCodePage());
                             break;
                         case 2:
                             // Handle the Circle button tab

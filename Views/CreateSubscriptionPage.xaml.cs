@@ -54,6 +54,7 @@ public partial class CreateSubscriptionPage : ContentPage
                 }
                 else
                 {
+                    await App.Current.MainPage.Navigation.PushAsync(new ProfilePage());
                     Console.WriteLine("Subscription not found.");
                 }
             }
@@ -61,6 +62,7 @@ public partial class CreateSubscriptionPage : ContentPage
             {
                 Console.WriteLine($"Error processing payment response: {ex.Message}");
             }
+            await App.Current.MainPage.Navigation.PushAsync(new ProfilePage());
         }
     }
 }

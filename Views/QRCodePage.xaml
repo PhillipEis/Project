@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:tabs="http://sharpnado.com"
+             x:Class="UIMock.Views.QRCodePage"
+             Title="QRCodePage"
+             NavigationPage.HasNavigationBar="False"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="BottomTabStyle" TargetType="tabs:BottomTabItem">
+                <Setter Property="SelectedTabColor" Value="#2196F3" />
+                <Setter Property="UnselectedLabelColor" Value="Gray" />
+                <Setter Property="UnselectedIconColor" Value="LightGray" />
+                <Setter Property="LabelSize" Value="14" />
+                <Setter Property="IconSize" Value="28" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid BackgroundColor="#E0E0E0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Top navigation bar -->
+        <StackLayout Grid.Row="0"
+                 Orientation="Horizontal"
+                 BackgroundColor="White"
+                 Padding="10">
+            <Label Text="Din tekst her"
+               FontSize="Large"
+               VerticalOptions="Center" />
+        </StackLayout>
+
+        <Frame Grid.Row="1"
+           Margin="80,80,80,0"
+            BackgroundColor="White"
+           CornerRadius="20"
+           Padding="0"
+           HorizontalOptions="Center"
+           VerticalOptions="Center">
+            <Image x:Name="qrCodeImage"
+               Source="qr_placeholder.png"
+               Aspect="AspectFit"
+               WidthRequest="350"
+               HeightRequest="350" />
+        </Frame>
+
+        <Label x:Name="timestampLabel"
+           Text="10:24:22"
+           Grid.Row="2"
+           Margin="0,0,0,200"
+           HorizontalOptions="Center"
+           FontSize="50" 
+           VerticalOptions="Center" />
+
+            <tabs:TabHostView x:Name="TabHost"
+                  Grid.Row="4"
+                  BackgroundColor="White"
+                  SelectedIndex="{Binding SelectedPage, Mode=TwoWay}"
+                  TabType="Fixed">
+                <tabs:TabHostView.Tabs>
+                    <tabs:BottomTabItem Style="{StaticResource BottomTabStyle}"
+                        IconImageSource="house_96.png"
+                        Label="Hjem" />
+                    <tabs:BottomTabItem Style="{StaticResource BottomTabStyle}"
+                        IconImageSource="qrcode.png"
+                        Label="QR" />
+
+                    <!--  Circle button  -->
+                    <tabs:TabButton ButtonBackgroundColor="Purple"
+                    ButtonCircleSize="60"
+                    ButtonPadding="15"
+                    IconImageSource="camera_96.png"
+                    Scale="1.3"
+                    TranslationY="-10" />
+
+                    <tabs:BottomTabItem Style="{StaticResource BottomTabStyle}"
+                        IconImageSource="grid_view_96.png"
+                        Label="G" />
+                    <tabs:BottomTabItem Style="{StaticResource BottomTabStyle}"
+                        IconImageSource="profile96.png"
+                        Label="Profil" />
+                </tabs:TabHostView.Tabs>
+            </tabs:TabHostView>
+    </Grid>
+</ContentPage>

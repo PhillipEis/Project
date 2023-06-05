@@ -29,12 +29,25 @@ public class CreateSubViewModel : BaseViewModel
             Mode = "subscription",
             SuccessUrl = "https://example.com/success",
             CancelUrl = "https://example.com/cancel",
+            
         };
 
         var service = new SessionService();
         StripeSession = service.Create(options);
 
         return StripeSession.Id;
+    }
+
+    public async Task CancelStripeSubscription()
+    {
+        StripeConfiguration.ApiKey = "sk_test_51Mhu7wBa7FzCpcu3o5lLh1IocYW9AdSYZaa65RCuPeog0DGMKzxBGDv7TmIbddyt5TJ75k0crIFrthvnqB5kCOTV00oRWufgTs";
+        var subscriptionService = new SubscriptionService();
+
+        // Replace 'sub_...' with the ID of the subscription you want to cancel
+        var subscription = subscriptionService.Cancel(User.CurrentUser.SubID);
+
+
+
     }
 
     public async Task<Subscription> GetSubscription(string sessionId)

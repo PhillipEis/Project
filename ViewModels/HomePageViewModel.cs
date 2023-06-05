@@ -32,7 +32,7 @@ namespace UIMock
                     switch (value)
                     {
                         case 1:
-                            // Navigate to the List page
+                            App.Current.MainPage.Navigation.PushAsync(new QRCodePage());
                             break;
                         case 2:
                             // Handle the Circle button tab
@@ -51,18 +51,25 @@ namespace UIMock
         public string Name { get; private set; }
         public string Greeting { get; private set; }
         public string OpenHours { get; private set; }
-
+        private bool loadMenu = true;
         public HomePageViewModel()
         {
             Name = User.CurrentUser.Name;
             Greeting = GetGreeting();
             OpenHours = User.CurrentUser.Cantine.Details.OpenTime + "-" + User.CurrentUser.Cantine.Details.CloseTime;
-            if (User.CurrentUser.Cantine != null)
+            LoadMenu();
+        }
+
+        private void LoadMenu()
+        {
+            if(loadMenu)
             {
-                var cantine = User.CurrentUser.Cantine;
-                if (cantine.Details != null)
+                if (User.CurrentUser.Cantine != null)
                 {
-                    List<Menu> menuDayList = new List<Menu>
+                    var cantine = User.CurrentUser.Cantine;
+                    if (cantine.Details != null)
+                    {
+                        List<Menu> menuDayList = new List<Menu>
                     {
                         new Menu { Day = "Mandag", Meal = cantine.Details.MenuDay1 },
                         new Menu { Day = "Tirsdag", Meal = cantine.Details.MenuDay2 },
@@ -73,8 +80,10 @@ namespace UIMock
                         new Menu { Day = "Søndag", Meal = cantine.Details.MenuDay7 }
                     };
 
-                    _reminderList = menuDayList.Where(md => !string.IsNullOrEmpty(md.Meal)).ToList();
+                        _reminderList = menuDayList.Where(md => !string.IsNullOrEmpty(md.Meal)).ToList();
+                    }
                 }
+                loadMenu = false;
             }
         }
         private string GetGreeting()

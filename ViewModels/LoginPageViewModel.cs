@@ -4,6 +4,8 @@ using Firebase.Auth;
 using System;
 using System.Windows.Input;
 using UIMock.API;
+using System.ComponentModel;
+using UIMock.Entities;
 
 namespace UIMock
 {
@@ -14,6 +16,20 @@ namespace UIMock
         public string UserPassword { get; set; }
         public ICommand ICommandNavToHomePage { get; set; }
         public ICommand IOpenRegistration { get; set; }
+        private bool _isLoginEnabled = true;
+        public bool IsLoginEnabled
+        {
+            get { return _isLoginEnabled; }
+            set
+            {
+                if (_isLoginEnabled != value)
+                {
+                    _isLoginEnabled = value;
+                    OnPropertyChanged(nameof(IsLoginEnabled));
+                }
+            }
+        }
+
         private FirebaseAuthClient client;
         public LoginPageViewModel()
 		{
@@ -41,13 +57,20 @@ namespace UIMock
         {
             try
             {
+                IsBusy = true;
+                IsLoginEnabled = false;
                 var userCredential = await client.SignInWithEmailAndPasswordAsync(Email, UserPassword);
                 await api.LoadUser(userCredential.User.Uid);
+                await PagePreloader.PreloadPagesAsync();
                 await App.Current.MainPage.Navigation.PushAsync(new HomePage());
+                IsBusy = false;
+                IsLoginEnabled = true;
             }
             catch (Exception ex)
             {
                 await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                IsBusy = false;
+                IsLoginEnabled = true;
 
             }
         }

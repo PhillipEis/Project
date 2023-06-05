@@ -17,7 +17,7 @@ namespace UIMock.API
     {
         private List<Cantines> Cantines = new List<Cantines>();
         private readonly HttpClient _httpClient;
-        private string url = "https://1dd6-2-104-115-51.eu.ngrok.io";
+        private string url = "http://192.168.0.11:8080";
         public APIController()
         {
             _httpClient = new HttpClient();
